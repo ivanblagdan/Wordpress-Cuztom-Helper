@@ -120,6 +120,16 @@ jQuery(function($) {
 			tinyMCE.execCommand("mceAddControl", false, tinymce_id);
 		});
 
+		// Readd Datepicker
+		last.find('.js-cuztom-datepicker').each(function(){
+			$(this).removeClass('hasDatepicker').datepicker({ dateFormat: $(this).data('date-format') });
+		});
+
+		// Readd Timepicker
+		last.find('.js-cuztom-timepicker').each(function(){
+			$(this).removeClass('hasDatepicker').removeClass('timepicker').timepicker({ timeFormat: $(this).data('time-format') });
+		});
+
 		// Reset data
 		new_item.find('.cuztom-input, textarea, select, .cuztom-hidden').val('').removeAttr('selected');
 		new_item.find('.js-cuztom-remove-media').remove();
