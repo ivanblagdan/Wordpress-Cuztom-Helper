@@ -35,15 +35,27 @@ jQuery(function($) {
 	// Sortable
 	$('.js-cuztom-sortable').sortable({
 		sort: function(event, ui){
+			// wysiwyg
 			ui.item.find('textarea.wp-editor-area').each(function(){
 				tinymce_id = $(this).attr('id');
 				tinyMCE.execCommand("mceRemoveControl", false, tinymce_id);
 			});
 		},
 		stop: function(event, ui){
+			// wysiwyg
 			ui.item.find('textarea.wp-editor-area').each(function(){
 				tinymce_id = $(this).attr('id');
 				tinyMCE.execCommand("mceAddControl", false, tinymce_id);
+			});
+
+			// Datepicker
+			$('.js-cuztom-datepicker').each(function(){
+				$(this).removeClass('hasDatepicker').datepicker({ dateFormat: $(this).data('date-format') });
+			});
+
+			// Timepicker
+			$('.js-cuztom-timepicker').each(function(){
+				$(this).removeClass('hasDatepicker').removeClass('timepicker').timepicker({ timeFormat: $(this).data('time-format') });
 			});
 		}
 	});
