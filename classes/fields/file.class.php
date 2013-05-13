@@ -5,7 +5,8 @@ if( ! defined( 'ABSPATH' ) ) exit;
 class Cuztom_Field_File extends Cuztom_Field
 {
 	var $_supports_ajax			= true;
-	
+	var $_supports_bundle		= true;
+
 	function _output( $value, $object )
 	{
 		$output = '';
@@ -23,12 +24,12 @@ class Cuztom_Field_File extends Cuztom_Field
 
 			$file = '<span class="cuztom-mime mime-' . $mime . '"><a target="_blank" href="' . $value . '">' . $name . '</a></span>';
 		}
-		else 
+		else
 		{
 			$file = '';
 		}
-	
-		$output .= '<input type="hidden" name="cuztom[' . $this->id_name . ']" id="' . $this->id_name . '" class="cuztom-hidden cuztom-input" value="' . ( ! empty( $value ) ? $value : '' ) . '" />';
+
+		$output .= '<input type="hidden" name="cuztom' . $this->pre . '[' . $this->id_name . ']' . $this->after . '" id="' . $this->id_name . '" class="cuztom-hidden cuztom-input" value="' . ( ! empty( $value ) ? $value : '' ) . '" />';
 		$output .= sprintf( '<input id="upload-file-button" type="button" class="button js-cuztom-upload" data-cuztom-media-type="file" value="%s" />', __( 'Select file', 'cuztom' ) );
 		$output .= ( ! empty( $value ) ? sprintf( '<a href="#" class="js-cuztom-remove-media cuztom-remove-media">%s</a>', __( 'Remove current file', 'cuztom' ) ) : '' );
 
@@ -40,14 +41,14 @@ class Cuztom_Field_File extends Cuztom_Field
 
 	/**
 	 * Get attachment by given url
-	 * 
+	 *
 	 * @param  string 			$url
 	 * @return integer
 	 */
-	function get_attachment_by_url( $url ) 
+	function get_attachment_by_url( $url )
 	{
 		global $wpdb;
-		
+
 		$attachment = $wpdb->get_row( $wpdb->prepare( "SELECT ID,post_title,post_mime_type FROM " . $wpdb->prefix . "posts" . " WHERE guid=%s;", $url ) );
 
 		return $attachment;
